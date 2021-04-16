@@ -52,7 +52,7 @@ def list_bingo_options():
     if(conn):
       cursor.close()
       conn.close()
-      print(cursor closed)
+      print("cursor closed")
 
 async def bingolist(ctx) :
   # await ctx.send("This is the current full list of Bingo card options.")
