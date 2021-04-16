@@ -24,30 +24,40 @@ async def whoami(ctx) :
 async def clear(ctx, amount=3) :
     await ctx.channel.purge(limit=amount)
 
-
 @client.command(name="bingolist")
-async def bingolist(ctx) :
-  # await ctx.send("This is the current full list of Bingo card options.")
+def list_bingo_options:
   query_sql = "SELECT DISTINCT key FROM public.bingolist;"
+
   try: 
+    print("connecting to database")
     conn = psycopg2.connect(db, sslmode='require')
     cursor = conn.cursor()
     cursor.execute(query_sql)
     records = cursor.fetchall()
+    print("database connected")
     record_list = []
     record_string = ""
     for row in records:
       print(row)
       record_list.append(row)
       record_string.join(row + '\n')
-    await ctx.send(f"Bingo list includes... {record_string}")
+    print("rows retrieved")
+    print(f"(log) Bingo list includes... {record_string}")
+    return(f"Bingo list includes... {record_string}")
 
   except:
-    await ctx.send("Error connecting to database")
+    return "Error connecting to database"
+
   finally:
     if(conn):
       cursor.close()
       conn.close()
+      print(cursor closed)
+
+async def bingolist(ctx) :
+  # await ctx.send("This is the current full list of Bingo card options.")
+    bo = list_bingo_options()
+    await ctx.send(f"bo {bo}")
 
 @client.command(name="bingoadd")
 async def bingoadd(ctx, item) :
