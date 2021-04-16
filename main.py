@@ -31,9 +31,15 @@ def query_db(sql) :
     cursor = conn.cursor()
     cursor.execute(sql)
     records = cursor.fetchall()
-    return records
+    record_list = []
+    record_string = ""
+    for row in records:
+      print(row)
+      record_list.append(row)
+      record_string.join(row + '\n')
+    return record_string
   except:
-    return "Error connecting to database"
+    print("Error connecting to database")
   finally:
     cursor.close()
     connection.close()
