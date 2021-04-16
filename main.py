@@ -64,6 +64,6 @@ async def bingolist(ctx) :
   finally:
     cursor.close()
     connection.close()
-  await ctx.send(record_string)
+  await ctx.send(f"{record_string}")
 
 client.run(token)
