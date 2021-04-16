@@ -25,7 +25,7 @@ async def clear(ctx, amount=3) :
     await ctx.channel.purge(limit=amount)
 
 @client.command(name="bingolist")
-def list_bingo_options:
+def list_bingo_options():
   query_sql = "SELECT DISTINCT key FROM public.bingolist;"
 
   try: 
