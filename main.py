@@ -24,8 +24,7 @@ async def whoami(ctx) :
 async def clear(ctx, amount=3) :
     await ctx.channel.purge(limit=amount)
 
-@client.command(name="bingolist")
-def list_bingo_options():
+async def list_bingo_options():
   query_sql = "SELECT DISTINCT key FROM public.bingolist;"
 
   try: 
@@ -54,6 +53,7 @@ def list_bingo_options():
       conn.close()
       print("cursor closed")
 
+@client.command(name="bingolist")
 async def bingolist(ctx) :
   # await ctx.send("This is the current full list of Bingo card options.")
     bo = list_bingo_options()
