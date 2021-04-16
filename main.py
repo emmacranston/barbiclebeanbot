@@ -5,7 +5,7 @@ import os
 
 client = commands.Bot(command_prefix=".")
 token = os.getenv("TOKEN")
-db = os.getenv("DATABASE")
+db = os.getenv("DATABASE_URL")
 
 @client.event
 async def on_ready() :
