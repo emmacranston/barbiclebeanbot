@@ -40,8 +40,7 @@ async def bingolist(ctx) :
       record_string = ""
       for row in records:
         print(row)
-        record_list = record_list.append(row)
-        record_string = record_string.join(row + '\n')
+        record_string += row
       print("rows retrieved")
       print(f"(log) Bingo list includes... {record_string}")
       await ctx.send(f"bo {record_string}")
