@@ -47,7 +47,7 @@ def query_db(sql) :
 @client.command(name="bingolist")
 async def bingolist(ctx) :
   await ctx.send("This is the current full list of Bingo card options.")
-  query_sql = "SELECT DISTINCT key FROM bingolist;"
+  query_sql = "SELECT DISTINCT key FROM public.bingolist;"
   try: 
     conn = psycopg2.connect(db, sslmode='require')
     cursor = conn.cursor()
