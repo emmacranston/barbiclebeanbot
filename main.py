@@ -43,7 +43,7 @@ async def bingolist(ctx) :
         record_string += row[0] + "\n"
       print("rows retrieved")
       print(f"(log) Bingo list includes... {record_string}")
-      await ctx.send(f"**Bingo list includes:** \n ```{record_string}```")
+      await ctx.send(f"**Bingo list includes:** ```{record_string}```")
 
 
     except:
@@ -57,6 +57,21 @@ async def bingolist(ctx) :
 
 @client.command(name="bingoadd")
 async def bingoadd(ctx, item) :
-    await ctx.send(f"Adding {item} to bingolist.")
+    query_sql = f"""INSERT INTO public.bingolist (key, server)
+    VALUES ({item}, {ctx.guild.name} )"""
+    try:
+      print("connecting to database")
+      conn = psycopg2.connect(db, sslmode='require')
+      cursor = conn.cursor()
+      cursor.execute(query_sql)
+      await ctx.send(f"Adding {item} to bingolist.")
+    except:
+      await ctx.send("Error inserting value to database")
+    finally:
+      if(conn):
+        cursor.close()
+        conn.close()
+        await ctx.send("Cursor Closed")
+
 
 client.run(token)
