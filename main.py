@@ -1,9 +1,11 @@
 import discord
 from discord.ext import commands
+import psycopg2
 import os
 
 client = commands.Bot(command_prefix=".")
 token = os.getenv("TOKEN")
+db = os.getenv("DATABASE")
 
 @client.event
 async def on_ready() :
@@ -22,5 +24,25 @@ async def whoami(ctx) :
 async def clear(ctx, amount=3) :
     await ctx.channel.purge(limit=amount)
 
+
+def query_db(sql) :
+  try: 
+    conn = psycopg2.connect(db, sslmode='require')
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    records = cursor.fetchall()
+    return records
+  except:
+    return "Error connecting to database"
+  finally:
+    cursor.close()
+    connection.close()
+
+@client.command(name="bingolist")
+async def bingolist(ctx) :
+    query_sql = "SELECT DISTINCT key FROM bingolist;"
+    res = query_db(query_sql)
+    await ctx.send(f"This is the current full list of Bingo card options.")
+    await ctx.send(res)
 
 client.run(token)
