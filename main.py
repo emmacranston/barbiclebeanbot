@@ -45,9 +45,9 @@ async def bingolist(ctx) :
   except:
     await ctx.send("Error connecting to database")
   finally:
-    if(connection()):
+    if(conn):
       cursor.close()
-      connection.close()
+      conn.close()
 
 @client.command(name="bingoadd")
 async def bingoadd(ctx, item) :
