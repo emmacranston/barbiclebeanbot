@@ -51,6 +51,6 @@ async def bingolist(ctx) :
 
 @client.command(name="bingoadd")
 async def bingoadd(ctx, item) :
-    await ctx.send(f"Adding {item} to bingolist.").
+    await ctx.send(f"Adding {item} to bingolist.")
 
 client.run(token)
