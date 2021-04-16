@@ -40,9 +40,9 @@ def query_db(sql) :
 
 @client.command(name="bingolist")
 async def bingolist(ctx) :
+    await ctx.send("This is the current full list of Bingo card options.")
     query_sql = "SELECT DISTINCT key FROM bingolist;"
     res = query_db(query_sql)
-    await ctx.send(f"This is the current full list of Bingo card options.")
     await ctx.send(res)
 
 client.run(token)
