@@ -39,16 +39,31 @@ def query_db(sql) :
       record_string.join(row + '\n')
     return record_string
   except:
-    print("Error connecting to database")
+    return "Error connecting to database"
   finally:
     cursor.close()
     connection.close()
 
 @client.command(name="bingolist")
 async def bingolist(ctx) :
-    await ctx.send("This is the current full list of Bingo card options.")
-    query_sql = "SELECT DISTINCT key FROM bingolist;"
-    res = query_db(query_sql)
-    await ctx.send(res)
+  await ctx.send("This is the current full list of Bingo card options.")
+  query_sql = "SELECT DISTINCT key FROM bingolist;"
+  try: 
+    conn = psycopg2.connect(db, sslmode='require')
+    cursor = conn.cursor()
+    cursor.execute(query_sql)
+    records = cursor.fetchall()
+    record_list = []
+    record_string = ""
+    for row in records:
+      print(row)
+      record_list.append(row)
+      record_string.join(row + '\n')
+  except:
+    print("Error connecting to database")
+  finally:
+    cursor.close()
+    connection.close()
+  await ctx.send(record_string)
 
 client.run(token)
