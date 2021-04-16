@@ -40,21 +40,21 @@ async def bingolist(ctx) :
       record_string = ""
       for row in records:
         print(row)
-        record_list.append(row)
-        record_string.join(row + '\n')
+        record_list = record_list.append(row)
+        record_string = record_string.join(row + '\n')
       print("rows retrieved")
       print(f"(log) Bingo list includes... {record_string}")
-      return(f"Bingo list includes... {record_string}")
+      await ctx.send(f"bo {record_string}")
+
 
     except:
-      return "Error connecting to database"
+      print("Error connecting to database")
 
     finally:
       if(conn):
         cursor.close()
         conn.close()
         print("cursor closed")
-    await ctx.send(f"bo {record_string}")
 
 @client.command(name="bingoadd")
 async def bingoadd(ctx, item) :
