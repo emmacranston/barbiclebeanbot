@@ -1,27 +1,26 @@
 import discord
+from discord.ext import commands
 import os
-import requests
-import json
 
-client = discord.Client()
-
-def get_quote():
-  response = requests.get("https://zenquotes.io/api/random")
-  json_data = json.loads(response.text)
-  quote = json_data[0]['q'] + " -" + json_data[0]['a']
-  return(quote)
+client = commands.Bot(command_prefix=".")
+token = os.getenv("TOKEN")
 
 @client.event
-async def on_ready():
-  print('We have logged in as {0.user}'.format(client))
+async def on_ready() :
+    await client.change_presence(status = discord.Status.idle, activity = discord.Game("Listening to .help"))
+    print("I am online")
 
-@client.event
-async def on_message(message):
-  if message.author == client.user:
-    return
+@client.command()
+async def ping(ctx) :
+    await ctx.send(f"🏓 Pong with {str(round(client.latency, 2))}")
 
-  if message.content.startswith('$inspire'):
-    quote = get_quote()
-    await message.channel.send(quote)
+@client.command(name="whoami")
+async def whoami(ctx) :
+    await ctx.send(f"You are {ctx.message.author.name}")
 
-client.run(os.getenv('TOKEN'))
+@client.command()
+async def clear(ctx, amount=3) :
+    await ctx.channel.purge(limit=amount)
+
+
+client.run(token)
