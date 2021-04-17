@@ -35,9 +35,12 @@ def pull_query(query_sql, success_msg="Success", fail_msg="Failed"):
   try:
     print("connecting to database")
     conn = psycopg2.connect(db, sslmode='require')
+    print("database connected")
     cursor = conn.cursor()
     cursor.execute(query_sql)
+    print("query executing")
     results = cursor.fetchall()
+    print(results)
     record_string = ""
     for row in records:
       print(row)
@@ -51,7 +54,7 @@ def pull_query(query_sql, success_msg="Success", fail_msg="Failed"):
   except psycopg2.errors.UniqueViolation:
     return fail_msg
   except:
-    return "Error inserting value to database"
+    return "Error pulling data."
   finally:
     if(conn):
       cursor.close()
@@ -92,7 +95,7 @@ async def bingolist(ctx) :
     ;"""
 
     listQuery = pull_query(query_sql,
-      '')
+      ' ')
     print(listQuery)
     await ctx.send(f"**Bingo list includes:** ```\n{listQuery}```")
 
