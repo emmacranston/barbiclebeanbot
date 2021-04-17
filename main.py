@@ -16,20 +16,20 @@ def check_role(ctx):
 
 def run_query(query_sql, success_msg='Success', fail_msg='Failed'):
   try:
-      print("connecting to database")
-      conn = psycopg2.connect(db, sslmode='require')
-      cursor = conn.cursor()
-      cursor.execute(query_sql)
-      conn.commit()
-      return success_msg
-    except psycopg2.errors.UniqueViolation:
-      return fail_msg
-    except:
-      return "Error inserting value to database"
-    finally:
-      if(conn):
-        cursor.close()
-        conn.close()
+    print("connecting to database")
+    conn = psycopg2.connect(db, sslmode='require')
+    cursor = conn.cursor()
+    cursor.execute(query_sql)
+    conn.commit()
+    return success_msg
+  except psycopg2.errors.UniqueViolation:
+    return fail_msg
+  except:
+    return "Error inserting value to database"
+  finally:
+    if(conn):
+      cursor.close()
+      conn.close()
 
 @client.event
 async def on_ready() :
