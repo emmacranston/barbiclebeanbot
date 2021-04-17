@@ -57,8 +57,9 @@ async def bingolist(ctx) :
 
 @client.command(name="bingoadd")
 async def bingoadd(ctx, item) :
+    print(ctx.guild.name)
     query_sql = f"""INSERT INTO public.bingolist (key, server)
-    VALUES ({item}, {ctx.guild.name} )"""
+    VALUES ('{item}', '{ctx.guild.name}' )"""
     try:
       print("connecting to database")
       conn = psycopg2.connect(db, sslmode='require')
