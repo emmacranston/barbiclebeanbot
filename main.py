@@ -59,10 +59,10 @@ async def bingolist(ctx) :
 
 @client.command(name="bingoadd")
 async def bingoadd(ctx) :
-    """ 
+    """ Adds an item to the bingo list.
      #TODO 
      * add game czar check before bingo is added
-     * and a sarcastic message if non-bingo czar tries it
+     * and a sarcastic message if non-bingo czar tries it ("Nice try, PEASANT!")
     """
     print(ctx.guild.name)
     item = ctx.message.content
@@ -114,18 +114,20 @@ async def found(ctx):
 
 @client.command(name="newGame")
 async def newGame(ctx):
-  docstring = """ 
+  """ Makes a new game. If you're the Bingo Dictator.
   #TODO 
+   * check that the user is game czar
    * swap public.current_list with public.prior_list
    * make a new blank list in public.current_list out of the available entries in bingolist
       * link and confirmation will be blank
    * make a new game in public.current_game, wipe old players list to public.last_game
   """
-  pass
+  rolestring = " ".join([str(i) for i in ctx.message.author.roles])
+  await ctx.send(f"Your roles are: {rolestring}")
 
 @client.command(name="confirmFind")
 async def confirmFind(ctx, item):
-  docstring = """ 
+  """  Confirms that a 'found' item has been accepted.
   #TODO
    * update public.current_list to reflect confirmations from game czar
    * add sarcastic message if non-czar tries it
@@ -134,7 +136,7 @@ async def confirmFind(ctx, item):
 
 @client.command(name="currentlist")
 async def currentlist(ctx) :
-    docstring = """
+    """ Shows the current list of items that have been confirmed by the Bingo Dictator.
     #TODO
      * add server protection check
     """
