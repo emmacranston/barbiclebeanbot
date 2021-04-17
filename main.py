@@ -124,11 +124,14 @@ async def newGame(ctx):
       * link and confirmation will be blank
    * make a new game in public.current_game, wipe old players list to public.last_game
   """
-  rolestring = ", ".join([str(i) for i in ctx.message.author.roles])
+  rolestring = ", ".join([str(i) for i in ctx.message.author.roles[1:]])
 
   await ctx.send(f"Your roles are: {rolestring}")
   if check_dictator(ctx) == True:
     await ctx.send("You are the dictator.")
+  else:
+    await ctx.send("You are a PEASANT!")
+
 
 @client.command(name="confirmFind")
 async def confirmFind(ctx, item):
