@@ -40,7 +40,7 @@ def pull_query(query_sql, success_msg="Success", fail_msg="Failed"):
     cursor.execute(query_sql)
     print("query executing")
     records = cursor.fetchall()
-    print(results)
+    print(records)
     record_string = ""
     for row in records:
       print(row)
