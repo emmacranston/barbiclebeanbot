@@ -88,8 +88,8 @@ async def bingolist(ctx) :
     ;"""
 
     listQuery = pull_query(query_sql,
-      f"**Bingo list includes:** ```\n{record_string}```")
-    await ctx.send(listQuery)
+      '')
+    await ctx.send(f"**Bingo list includes:** ```\n{listQuery}```")
 
 @client.command(name="currentlist")
 async def currentlist(ctx) :
