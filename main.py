@@ -70,7 +70,9 @@ async def BingoAdd(ctx) :
    * and a sarcastic message if non-bingo czar tries it ("Nice try, PEASANT!")
   """
   content = ctx.message.content
+  print(content)
   item = content.split(".bingoAdd ")[-1]
+  print(item)
   query_sql = f"""INSERT INTO public.bingolist (key, server)
   VALUES ('{item}', '{ctx.guild.name}' )"""
   addQuery = run_query(query_sql
