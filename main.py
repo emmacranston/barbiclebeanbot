@@ -125,7 +125,7 @@ async def newGame(ctx):
    * make a new game in public.current_game, wipe old players list to public.last_game
   """
   rolestring = ", ".join([str(i) for i in ctx.message.author.roles[1:]])
-  print(ctx.message.author.roles)
+  print(set(ctx.message.author.roles))
   await ctx.send(f"Your roles are: {rolestring}")
   if check_dictator(ctx) == True:
     await ctx.send("You are the dictator.")
