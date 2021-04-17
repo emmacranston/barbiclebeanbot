@@ -58,10 +58,12 @@ async def bingolist(ctx) :
         print("cursor closed")
 
 @client.command(name="bingoadd")
-""" #TODO add game czar check before bingo is added
-     * and a sarcastic message if non-bingo czar tries it
-"""
 async def bingoadd(ctx) :
+    """ 
+     #TODO 
+     * add game czar check before bingo is added
+     * and a sarcastic message if non-bingo czar tries it
+    """
     print(ctx.guild.name)
     item = ctx.message.content
     query_sql = f"""INSERT INTO public.bingolist (key, server)
@@ -112,7 +114,7 @@ async def found(ctx):
 
 @client.command(name="newGame")
 async def newGame(ctx):
-  """ 
+  docstring = """ 
   #TODO 
    * swap public.current_list with public.prior_list
    * make a new blank list in public.current_list out of the available entries in bingolist
@@ -123,7 +125,7 @@ async def newGame(ctx):
 
 @client.command(name="confirmFind")
 async def confirmFind(ctx, item):
-  """ 
+  docstring = """ 
   #TODO
    * update public.current_list to reflect confirmations from game czar
    * add sarcastic message if non-czar tries it
@@ -132,7 +134,7 @@ async def confirmFind(ctx, item):
 
 @client.command(name="currentlist")
 async def currentlist(ctx) :
-  """
+  docstring = """
   #TODO
    * add server protection check
   """
