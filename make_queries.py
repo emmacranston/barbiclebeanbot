@@ -25,3 +25,10 @@ def pull_bingolist():
         cursor.close()
         conn.close()
         print("cursor closed")
+
+def check_dictator(ctx):
+  roles = set(ctx.message.author.roles)
+  if "Bingo Dictator" in roles :
+    return True
+  else: 
+    return False

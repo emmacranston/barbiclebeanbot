@@ -3,6 +3,8 @@ from discord.ext import commands
 import psycopg2
 import os
 
+from make_queries import check_dictator
+
 client = commands.Bot(command_prefix=".")
 token = os.getenv("TOKEN")
 db = os.getenv("DATABASE_URL")
@@ -122,8 +124,11 @@ async def newGame(ctx):
       * link and confirmation will be blank
    * make a new game in public.current_game, wipe old players list to public.last_game
   """
-  rolestring = " ".join([str(i) for i in ctx.message.author.roles])
+  rolestring = ", ".join([str(i) for i in ctx.message.author.roles])
+
   await ctx.send(f"Your roles are: {rolestring}")
+  if check_dictator(ctx) == True:
+    await ctx.send("You are the dictator.")
 
 @client.command(name="confirmFind")
 async def confirmFind(ctx, item):
