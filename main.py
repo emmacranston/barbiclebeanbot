@@ -42,7 +42,7 @@ def pull_query(query_sql, success_msg="Success", fail_msg="Failed"):
     for row in records:
       row_string = ""
       for value in row:
-        row_string += value ", "
+        row_string += value + ", "
       record_string += row_string + "\n"
     return success_msg + record_string
 
