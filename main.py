@@ -72,7 +72,7 @@ async def bingolist(ctx) :
         record_string += row[0] + "\n"
       print("rows retrieved")
       print(f"(log) Bingo list includes... {record_string}")
-      await ctx.send(f"**Bingo list includes:** ``` \n {record_string}```")
+      await ctx.send(f"**Bingo list includes:** ```\n{record_string}```")
 
 
     except:
