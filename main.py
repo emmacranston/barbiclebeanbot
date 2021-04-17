@@ -39,7 +39,7 @@ async def on_ready() :
 @client.command(name="BingoAdd")
 async def BingoAdd(ctx) :
   content = str(ctx.message.content)
-  item = content.split(".bingoAdd ")[1]
+  item = content.split(".bingoAdd ")[-1]
   query_sql = f"""INSERT INTO public.bingolist (key, server)
   VALUES ('{item}', '{ctx.guild.name}' )"""
   addQuery = run_query(query_sql
