@@ -52,7 +52,7 @@ async def bingodata(ctx):
 
 @client.command(name="bingolist")
 async def bingolist(ctx) :
-  # await ctx.send("This is the current full list of Bingo card options.")
+    print(ctx.guild.name)
     query_sql = f"""
     SELECT DISTINCT key 
     FROM public.bingolist
