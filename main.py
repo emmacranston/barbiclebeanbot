@@ -65,7 +65,10 @@ async def bingoadd(ctx, item) :
       conn = psycopg2.connect(db, sslmode='require')
       cursor = conn.cursor()
       cursor.execute(query_sql)
-      await ctx.send(f"Adding {item} to bingolist.")
+      conn.commit()
+      await ctx.send(f"Added {item} to bingolist.")
+    except IntegrityError:
+      await ctx.send(f"{item} is already in the bingo list!")
     except:
       await ctx.send("Error inserting value to database")
     finally:
