@@ -72,7 +72,7 @@ async def bingolist(ctx) :
         record_string += row[0] + "\n"
       print("rows retrieved")
       print(f"(log) Bingo list includes... {record_string}")
-      await ctx.send(f"**Bingo list includes:** ```{record_string}```")
+      await ctx.send(f"**Bingo list includes:** ``` \n {record_string}```")
 
 
     except:
@@ -96,7 +96,7 @@ async def bingoadd(ctx, item) :
       cursor.execute(query_sql)
       conn.commit()
       await ctx.send(f"Added {item} to bingolist.")
-    except IntegrityError:
+    except psycopg2.errors.UniqueViolation:
       await ctx.send(f"{item} is already in the bingo list!")
     except:
       await ctx.send("Error inserting value to database")
