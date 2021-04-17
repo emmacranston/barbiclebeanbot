@@ -38,7 +38,12 @@ async def on_ready() :
 
 @client.command(name="BingoAdd")
 async def BingoAdd(ctx) :
-  content = str(ctx.message.content)
+  """ Adds an item to the bingo list.
+   #TODO 
+   * add game czar check before bingo is added
+   * and a sarcastic message if non-bingo czar tries it ("Nice try, PEASANT!")
+  """
+  content = ctx.message.content
   item = content.split(".bingoAdd ")[-1]
   query_sql = f"""INSERT INTO public.bingolist (key, server)
   VALUES ('{item}', '{ctx.guild.name}' )"""
@@ -47,35 +52,6 @@ async def BingoAdd(ctx) :
     , f"{item} is already in the bingo list."
     )
   await ctx.send(addQuery)
-
-@client.command(name="bingoadd")
-async def bingoadd(ctx) :
-    """ Adds an item to the bingo list.
-     #TODO 
-     * add game czar check before bingo is added
-     * and a sarcastic message if non-bingo czar tries it ("Nice try, PEASANT!")
-    """
-    print(ctx.guild.name)
-    item = ctx.message.content
-    query_sql = f"""INSERT INTO public.bingolist (key, server)
-    VALUES ('{item}', '{ctx.guild.name}' )"""
-    try:
-      print("connecting to database")
-      conn = psycopg2.connect(db, sslmode='require')
-      cursor = conn.cursor()
-      cursor.execute(query_sql)
-      conn.commit()
-      await ctx.send(f"Added {item} to bingolist.")
-    except psycopg2.errors.UniqueViolation:
-      await ctx.send(f"{item} is already in the bingo list!")
-    except:
-      await ctx.send("Error inserting value to database")
-    finally:
-      if(conn):
-        cursor.close()
-        conn.close()
-        await ctx.send("Cursor Closed")
-
 
 @client.command(name="bingolist")
 async def bingolist(ctx) :
@@ -87,29 +63,9 @@ async def bingolist(ctx) :
     WHERE server = '{ctx.guild.name}'
     ;"""
 
-    try: 
-      print("connecting to database")
-      conn = psycopg2.connect(db, sslmode='require')
-      cursor = conn.cursor()
-      cursor.execute(query_sql)
-      records = cursor.fetchall()
-      print("database connected")
-      record_string = ""
-      for row in records:
-        print(row)
-        record_string += row[0] + "\n"
-      print("rows retrieved")
-      print(f"(log) Bingo list includes... {record_string}")
-      await ctx.send(f"**Bingo list includes:** ```\n{record_string}```")
-
-    except:
-      print("Error connecting to database")
-
-    finally:
-      if(conn):
-        cursor.close()
-        conn.close()
-        print("cursor closed")
+    listQuery = run_query(query_sql,
+      f"**Bingo list includes:** ```\n{record_string}```")
+    await ctx.send(listQuery)
 
 @client.command(name="currentlist")
 async def currentlist(ctx) :
@@ -118,28 +74,9 @@ async def currentlist(ctx) :
      * add server protection check
     """
     query_sql = "SELECT * FROM public.current_game WHERE confirmed = TRUE;"
-    try:
-      conn = psycopg2.connect(db, sslmode='require')
-      cursor = conn.cursor()
-      cursor.execute(query_sql)
-      records = cursor.fetchall()
-
-      record_string = ''
-      for row in records:
-        rowvals = ''
-        for item in row:
-          rowvals += str(item) + ', '
-          print(rowvals)
-        record_string += rowvals + "\n"
-      await ctx.send(f"All data: ```{record_string}```")
-
-    except:
-      print("Error connecting to database")
-
-    finally:
-      if(conn):
-        cursor.close()
-        conn.close()
+    clistQuery = run_query(query_sql,
+      f"All data: ```{record_string}```")
+    await ctx.send(clistQuery)
 
 @client.command(name="found")
 async def found(ctx):
