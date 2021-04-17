@@ -114,6 +114,15 @@ async def found(ctx):
         conn.close()
         print("Cursor Closed")
 
+@client.command(name="newgame")
+async def newgame(ctx):
+  role = discord.utils.get(ctx.guild.roles, name="Bingo Dictator")
+  if role in ctx.author.roles:
+    await ctx.send(f"You are the Bingo Dictator with role {role.name}")
+  else:
+    await ctx.send("You are a PEASANT!")
+
+
 @client.command(name="newGame")
 async def newGame(ctx):
   """ Makes a new game. If you're the Bingo Dictator.
