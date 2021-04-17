@@ -3,8 +3,6 @@ from discord.ext import commands
 import psycopg2
 import os
 
-from make_queries import check_dictator
-
 client = commands.Bot(command_prefix=".")
 token = os.getenv("TOKEN")
 db = os.getenv("DATABASE_URL")
