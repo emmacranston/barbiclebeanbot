@@ -106,5 +106,9 @@ async def bingoadd(ctx, item) :
         conn.close()
         await ctx.send("Cursor Closed")
 
+@client.command(name="currentlist")
+async def currentlist(ctx) :
+    await ctx.send(f"You said: {ctx.message.content}")
+
 
 client.run(token)
