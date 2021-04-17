@@ -134,10 +134,10 @@ async def confirmFind(ctx, item):
 
 @client.command(name="currentlist")
 async def currentlist(ctx) :
-  docstring = """
-  #TODO
-   * add server protection check
-  """
+    docstring = """
+    #TODO
+     * add server protection check
+    """
     query_sql = "SELECT * FROM public.current_game WHERE confirmed = TRUE;"
     try:
       conn = psycopg2.connect(db, sslmode='require')
