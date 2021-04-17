@@ -115,37 +115,37 @@ async def found(ctx):
         conn.close()
         print("Cursor Closed")
 
-@client.command(name="run_query")
-async def run_query(sql, msg, error_msg=''):
-  try:
-      print("connecting to database")
-      conn = psycopg2.connect(db, sslmode='require')
-      cursor = conn.cursor()
-      cursor.execute(sql)
-      conn.commit()
-      await ctx.send("msg")
-  except psycopg2.errors.UniqueViolation:
-    await ctx.send(error_msg)
-  except:
-    await ctx.send("Error inserting value to database")
-    print("Query failed")
-  finally:
-    if(conn):
-      cursor.close()
-      conn.close()
-      print("Cursor Closed")
+# @client.command(name="run_query")
+# async def run_query(sql, msg, error_msg=''):
+#   try:
+#       print("connecting to database")
+#       conn = psycopg2.connect(db, sslmode='require')
+#       cursor = conn.cursor()
+#       cursor.execute(sql)
+#       conn.commit()
+#       await ctx.send("msg")
+#   except psycopg2.errors.UniqueViolation:
+#     await ctx.send(error_msg)
+#   except:
+#     await ctx.send("Error inserting value to database")
+#     print("Query failed")
+#   finally:
+#     if(conn):
+#       cursor.close()
+#       conn.close()
+#       print("Cursor Closed")
 
-@client.command(name='find')
-async def find(ctx):
-    msg = ctx.message.content.split(',')
-    key = msg[0]
-    link = msg[1]
-    print(ctx.guild.name)
-    query_sql = f"""INSERT INTO public.current_game (bingo_key, link)
-    VALUES ('{key}', '{link}');"""
+# @client.command(name='find')
+# async def find(ctx):
+#     msg = ctx.message.content.split(',')
+#     key = msg[0]
+#     link = msg[1]
+#     print(ctx.guild.name)
+#     query_sql = f"""INSERT INTO public.current_game (bingo_key, link)
+#     VALUES ('{key}', '{link}');"""
 
-    print(f"Attempting query {query_sql}")
-    await ctx.invoke(bot.get_command('run_query'), query=query_sql)
+#     print(f"Attempting query {query_sql}")
+#     await ctx.invoke(bot.get_command('run_query'), query=query_sql)
 
 @client.command(name="newgame")
 async def newGame(ctx):
