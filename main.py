@@ -106,6 +106,33 @@ async def bingoadd(ctx, item) :
         conn.close()
         await ctx.send("Cursor Closed")
 
+@client.command(name="found")
+async def found(ctx):
+    await ctx.send(f"You said: {ctx.message.content}")
+    msg = ctx.message.content.split(',')
+    key = msg[0]
+    link = msg[1]
+    print(ctx.guild.name)
+    query_sql = f"""INSERT INTO public.current_game (bingo_key, link)
+    VALUES ('{key}', '{link}');"""
+    try:
+      print("connecting to database")
+      conn = psycopg2.connect(db, sslmode='require')
+      cursor = conn.cursor()
+      cursor.execute(query_sql)
+      conn.commit()
+      await ctx.send(f"Added {key} with link {link} to current game.")
+    except psycopg2.errors.UniqueViolation:
+      await ctx.send(f"{key} has already been found!")
+    except:
+      await ctx.send("Error inserting value to database")
+    finally:
+      if(conn):
+        cursor.close()
+        conn.close()
+        print("Cursor Closed")
+
+
 @client.command(name="currentlist")
 async def currentlist(ctx) :
     await ctx.send(f"You said: {ctx.message.content}")
