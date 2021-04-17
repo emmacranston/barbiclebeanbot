@@ -31,6 +31,30 @@ def run_query(query_sql, success_msg='Success', fail_msg='Failed'):
       cursor.close()
       conn.close()
 
+def pull_query(query_sql, success_msg="Success", fail_msg="Failed"):
+  try:
+    print("connecting to database")
+    conn = psycopg2.connect(db, sslmode='require')
+    cursor = conn.cursor()
+    cursor.execute(query_sql)
+    results = cursor.fetchall()
+    record_string = ""
+    for row in records:
+      row_string = ""
+      for value in row:
+        row_string += value ", "
+      record_string += row_string + "\n"
+    return success_msg + record_string
+
+  except psycopg2.errors.UniqueViolation:
+    return fail_msg
+  except:
+    return "Error inserting value to database"
+  finally:
+    if(conn):
+      cursor.close()
+      conn.close()
+
 @client.event
 async def on_ready() :
     await client.change_presence(status = discord.Status.idle, activity = discord.Game("Listening to .help"))
@@ -63,7 +87,7 @@ async def bingolist(ctx) :
     WHERE server = '{ctx.guild.name}'
     ;"""
 
-    listQuery = run_query(query_sql,
+    listQuery = pull_query(query_sql,
       f"**Bingo list includes:** ```\n{record_string}```")
     await ctx.send(listQuery)
 
