@@ -40,10 +40,12 @@ def pull_query(query_sql, success_msg="Success", fail_msg="Failed"):
     results = cursor.fetchall()
     record_string = ""
     for row in records:
+      print(row)
       row_string = ""
       for value in row:
         row_string += value + ", "
       record_string += row_string + "\n"
+      print(record_string)
     return success_msg + record_string
 
   except psycopg2.errors.UniqueViolation:
