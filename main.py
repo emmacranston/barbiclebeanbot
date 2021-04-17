@@ -28,6 +28,7 @@ async def on_ready() :
 
 @client.command(name="bingolist")
 async def bingolist(ctx) :
+    """Lists the items used in this bingo game's card generator."""
     print(ctx.guild.name)
     query_sql = f"""
     SELECT DISTINCT key 
@@ -114,16 +115,39 @@ async def found(ctx):
         conn.close()
         print("Cursor Closed")
 
+@client.command(name="run_query")
+async def run_query(sql, msg, error_msg=''):
+  try:
+      print("connecting to database")
+      conn = psycopg2.connect(db, sslmode='require')
+      cursor = conn.cursor()
+      cursor.execute(sql)
+      conn.commit()
+      await ctx.send("msg")
+    except psycopg2.errors.UniqueViolation:
+      await ctx.send(error_msg)
+    except:
+      await ctx.send("Error inserting value to database")
+      print("Query failed")
+    finally:
+      if(conn):
+        cursor.close()
+        conn.close()
+        print("Cursor Closed")
+
+@client.command(name='find')
+async def find(ctx):
+    msg = ctx.message.content.split(',')
+    key = msg[0]
+    link = msg[1]
+    print(ctx.guild.name)
+    query_sql = f"""INSERT INTO public.current_game (bingo_key, link)
+    VALUES ('{key}', '{link}');"""
+
+    print(f"Attempting query {query_sql}")
+    await ctx.invoke(bot.get_command('run_query'), query=query_sql)
+
 @client.command(name="newgame")
-async def newgame(ctx):
-  role = discord.utils.get(ctx.guild.roles, name="Bingo Dictator")
-  if role in ctx.author.roles:
-    await ctx.send(f"You are the Bingo Dictator with role {role.name}")
-  else:
-    await ctx.send("You are a PEASANT!")
-
-
-@client.command(name="newGame")
 async def newGame(ctx):
   """ Makes a new game. If you're the Bingo Dictator.
   #TODO 
@@ -133,23 +157,24 @@ async def newGame(ctx):
       * link and confirmation will be blank
    * make a new game in public.current_game, wipe old players list to public.last_game
   """
-  rolestring = ", ".join([str(i) for i in ctx.message.author.roles[1:]])
-  print(set(ctx.message.author.roles))
-  await ctx.send(f"Your roles are: {rolestring}")
-  if check_dictator(ctx) == True:
-    await ctx.send("You are the dictator.")
+  role = discord.utils.get(ctx.guild.roles, name="Bingo Dictator")
+  if role in ctx.author.roles:
+    await ctx.send(f"You are the Bingo Dictator with role {role.name}")
   else:
     await ctx.send("You are a PEASANT!")
 
-
-@client.command(name="confirmFind")
+@client.command(name="confirmfind")
 async def confirmFind(ctx, item):
   """  Confirms that a 'found' item has been accepted.
   #TODO
    * update public.current_list to reflect confirmations from game czar
    * add sarcastic message if non-czar tries it
   """
-  pass
+  dictator = discord.utils.get(ctx.guild.roles, name="Bingo Dictator")
+  if dictator in ctx.author.roles:
+    
+  else:
+    await ctx.send("Simple _peasants_ mayn't confirm Bingo finds.")
 
 @client.command(name="currentlist")
 async def currentlist(ctx) :
