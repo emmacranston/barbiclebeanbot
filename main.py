@@ -124,16 +124,16 @@ async def run_query(sql, msg, error_msg=''):
       cursor.execute(sql)
       conn.commit()
       await ctx.send("msg")
-    except psycopg2.errors.UniqueViolation:
-      await ctx.send(error_msg)
-    except:
-      await ctx.send("Error inserting value to database")
-      print("Query failed")
-    finally:
-      if(conn):
-        cursor.close()
-        conn.close()
-        print("Cursor Closed")
+  except psycopg2.errors.UniqueViolation:
+    await ctx.send(error_msg)
+  except:
+    await ctx.send("Error inserting value to database")
+    print("Query failed")
+  finally:
+    if(conn):
+      cursor.close()
+      conn.close()
+      print("Cursor Closed")
 
 @client.command(name='find')
 async def find(ctx):
