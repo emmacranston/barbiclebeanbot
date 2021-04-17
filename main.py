@@ -172,7 +172,7 @@ async def confirmFind(ctx, item):
   """
   dictator = discord.utils.get(ctx.guild.roles, name="Bingo Dictator")
   if dictator in ctx.author.roles:
-    
+    pass
   else:
     await ctx.send("Simple _peasants_ mayn't confirm Bingo finds.")
 
