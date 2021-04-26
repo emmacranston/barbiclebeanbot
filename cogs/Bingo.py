@@ -21,7 +21,7 @@ class Bingo(commands.Cog):
 		    print(listQuery)
 		    await ctx.send(f"**Bingo list includes:** ```\n{listQuery}```")
 		 
-		@commands.command(name='ping', aliases='p')
+		@commands.command(name='ping', aliases=['p'])
 		async def ping(self, ctx):
 			await ctx.send("Pong! :ping_pong:")
 
