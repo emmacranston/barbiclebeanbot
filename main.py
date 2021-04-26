@@ -64,7 +64,7 @@ def pull_query(query_sql, success_msg="Success", fail_msg="Failed"):
 async def on_ready() :
     #load startup extensions
     try:
-      client.load_extension('cogs/Bingo.py')
+      client.load_extension('cogs.Bingo.py')
       print("Loaded extension '{0}'".format('Bingo'))
     except Exception as e:
       exc = '{0}: {1}'.format(type(e).__name__, e)
