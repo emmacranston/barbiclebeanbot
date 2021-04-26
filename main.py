@@ -170,4 +170,3 @@ async def leavegame(ctx):
   pass
 
 client.run(token)
-client.add_cog(Bingo)
