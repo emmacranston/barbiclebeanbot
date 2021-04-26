@@ -92,20 +92,20 @@ async def BingoAdd(ctx) :
     )
   await ctx.send(addQuery)
 
-@client.command(name="bingolist")
-async def bingolist(ctx) :
-    """Lists the items used in this bingo game's card generator."""
-    print(ctx.guild.name)
-    query_sql = f"""
-    SELECT DISTINCT key 
-    FROM public.bingolist
-    WHERE server = '{ctx.guild.name}'
-    ;"""
+# @client.command(name="bingolist")
+# async def bingolist(ctx) :
+#     """Lists the items used in this bingo game's card generator."""
+#     print(ctx.guild.name)
+#     query_sql = f"""
+#     SELECT DISTINCT key 
+#     FROM public.bingolist
+#     WHERE server = '{ctx.guild.name}'
+#     ;"""
 
-    listQuery = pull_query(query_sql,
-      ' ')
-    print(listQuery)
-    await ctx.send(f"**Bingo list includes:** ```\n{listQuery}```")
+#     listQuery = pull_query(query_sql,
+#       ' ')
+#     print(listQuery)
+#     await ctx.send(f"**Bingo list includes:** ```\n{listQuery}```")
 
 @client.command(name="currentlist")
 async def currentlist(ctx) :
