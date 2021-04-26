@@ -120,22 +120,12 @@ async def found(ctx):
     print(ctx.guild.name)
     query_sql = f"""INSERT INTO public.current_game (bingo_key, link)
     VALUES ('{key}', '{link}');"""
-    try:
-      print("connecting to database")
-      conn = psycopg2.connect(db, sslmode='require')
-      cursor = conn.cursor()
-      cursor.execute(query_sql)
-      conn.commit()
-      await ctx.send(f"Added {key} with link {link} to current game.")
-    except psycopg2.errors.UniqueViolation:
-      await ctx.send(f"{key} has already been found!")
-    except:
-      await ctx.send("Error inserting value to database")
-    finally:
-      if(conn):
-        cursor.close()
-        conn.close()
-        print("Cursor Closed")
+
+    foundQuery = run_query(query_sql,
+      f"Added {key} with link {link} to current game.",
+      f"{key} has already been found!"
+      )
+    await ctx.send(foundQuery)
 
 @client.command(name="newgame")
 async def newGame(ctx):
@@ -166,5 +156,17 @@ async def confirmFind(ctx, item):
   else:
     await ctx.send("Simple _peasants_ mayn't confirm Bingo finds.")
 
+@client.command(name="joingame")
+async def joingame(ctx):
+  """Allows you to join a new game.
+  #TODO
+  """
+  pass
+
+@client.command(name="leavegame")
+async def leavegame(ctx):
+  """Allows you to leave the game.
+  """
+  pass
 
 client.run(token)
