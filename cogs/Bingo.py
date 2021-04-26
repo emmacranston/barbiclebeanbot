@@ -6,24 +6,24 @@ class Bingo(commands.Cog):
 	def __init__(self, client):
 		self.client = client
 
-		@commands.command(name='bl', aliases=["bingolist","BingoList","bl"])
-		async def bl(self, ctx) :
-		    """Lists the items used in this bingo game's card generator."""
-		    print(ctx.guild.name)
-		    query_sql = f"""
-		    SELECT DISTINCT key 
-		    FROM public.bingolist
-		    WHERE server = '{ctx.guild.name}'
-		    ;"""
+	@commands.command(name='bl', aliases=["bingolist","BingoList","bl"])
+	async def bl(self, ctx) :
+	    """Lists the items used in this bingo game's card generator."""
+	    print(ctx.guild.name)
+	    query_sql = f"""
+	    SELECT DISTINCT key 
+	    FROM public.bingolist
+	    WHERE server = '{ctx.guild.name}'
+	    ;"""
 
-		    listQuery = self.pull_query(query_sql,
-		      ' ')
-		    print(listQuery)
-		    await ctx.send(f"**Bingo list includes:** ```\n{listQuery}```")
-		 
-		@commands.command(name='ping', aliases=['p'])
-		async def ping(self, ctx):
-			await ctx.send("Pong! :ping_pong:")
+	    listQuery = self.pull_query(query_sql,
+	      ' ')
+	    print(listQuery)
+	    await ctx.send(f"**Bingo list includes:** ```\n{listQuery}```")
+	 
+	@commands.command(name='ping', aliases=['p'])
+	async def ping(self, ctx):
+		await ctx.send("Pong! :ping_pong:")
 
 	def pull_query(self, query_sql, success_msg="Success", fail_msg="Failed"):
 	  try:
