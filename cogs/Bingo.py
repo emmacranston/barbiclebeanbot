@@ -6,6 +6,8 @@ import os
 class Bingo(commands.Cog):
 	def __init__(self, client):
 		self.client = client
+		self.db = os.getenv("DATABASE_URL")
+
 
 	@commands.command(name='bl', aliases=["bingolist","BingoList"])
 	async def bl(self, ctx) :
@@ -29,7 +31,7 @@ class Bingo(commands.Cog):
 	def pull_query(self, query_sql, success_msg="Success", fail_msg="Failed"):
 	  try:
 	    print("connecting to database")
-	    conn = psycopg2.connect(db, sslmode='require')
+	    conn = psycopg2.connect(self.db, sslmode='require')
 	    print("database connected")
 	    cursor = conn.cursor()
 	    cursor.execute(query_sql)
