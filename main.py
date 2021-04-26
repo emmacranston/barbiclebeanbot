@@ -62,6 +62,9 @@ def pull_query(query_sql, success_msg="Success", fail_msg="Failed"):
 
 @client.event
 async def on_ready() :
+    await client.change_presence(status = discord.Status.idle, activity = discord.Game("Listening to .help"))
+    print("I am online")
+    
     #load startup extensions
     try:
       client.load_extension('cogs.Bingo')
@@ -69,9 +72,6 @@ async def on_ready() :
     except Exception as e:
       exc = '{0}: {1}'.format(type(e).__name__, e)
       print('Failed to load extension {0}\nError: {1}'.format('Bingo', exc))
-
-    await client.change_presence(status = discord.Status.idle, activity = discord.Game("Listening to .help"))
-    print("I am online")
 
 @client.command(name="BingoAdd")
 async def BingoAdd(ctx) :
