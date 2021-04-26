@@ -1,12 +1,13 @@
 import discord
 from discord.ext import commands
+import psycopg2
 import os
 
 class Bingo(commands.Cog):
 	def __init__(self, client):
 		self.client = client
 
-	@commands.command(name='bl', aliases=["bingolist","BingoList","bl"])
+	@commands.command(name='bl', aliases=["bingolist","BingoList"])
 	async def bl(self, ctx) :
 	    """Lists the items used in this bingo game's card generator."""
 	    print(ctx.guild.name)
