@@ -18,6 +18,14 @@ def check_role(ctx):
 async def on_ready() :
     await client.change_presence(status = discord.Status.idle, activity = discord.Game("Listening to .help"))
     print("I am online")
+  try:
+    client.load_extension('cogs.QueryEngine')
+    print("Loaded extension '{0}'".format('QueryEngine'))
+  except Exception as e:
+    exc = '{0}: {1}'.format(type(e).__name__, e)
+    print('Failed to load extension {0}\nError: {1}'.format('QueryEngine', exc))
+
+
 
 @client.command(name="startBingo", aliases=['sb'])
 async def start_bingo(ctx) :
@@ -28,7 +36,6 @@ async def start_bingo(ctx) :
   except Exception as e:
     exc = '{0}: {1}'.format(type(e).__name__, e)
     print('Failed to load extension {0}\nError: {1}'.format('Bingo', exc))
-
 
 
 client.run(token)
