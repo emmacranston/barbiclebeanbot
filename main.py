@@ -16,8 +16,8 @@ def check_role(ctx):
 
 @client.event
 async def on_ready() :
-    await client.change_presence(status = discord.Status.idle, activity = discord.Game("Listening to .help"))
-    print("I am online")
+  await client.change_presence(status = discord.Status.idle, activity = discord.Game("Listening to .help"))
+  print("I am online")
   try:
     client.load_extension('cogs.QueryEngine')
     print("Loaded extension '{0}'".format('QueryEngine'))
