@@ -50,3 +50,6 @@ class QueryEngine(commands.Cog):
 	    if(conn):
 	      cursor.close()
 	      conn.close()
+def setup(client):
+	client.add_cog(QueryEngine(client))
+

@@ -112,5 +112,4 @@ class Bingo(QueryEngine):
 	  """
 	  pass
 def setup(client):
-	client.add_cog(QueryEngine)
 	client.add_cog(Bingo(client))
