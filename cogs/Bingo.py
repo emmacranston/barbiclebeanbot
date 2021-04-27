@@ -1,6 +1,7 @@
 import os
 import discord
 from discord.ext import commands
+import QueryEngine
 
 class Bingo(QueryEngine):
 	"""Commands for a bingo game."""
@@ -112,4 +113,5 @@ class Bingo(QueryEngine):
 	  """
 	  pass
 def setup(client):
+	client.add_cog(QueryEngine)
 	client.add_cog(Bingo(client))

@@ -1,4 +1,6 @@
 import psycopg2
+import discord
+from discord.ext import commands
 
 class QueryEngine(commands.Cog):
 	def __init__(self, client):
