@@ -3,11 +3,6 @@ import os
 import discord
 from discord.ext import commands
 
-
-def setup(client):
-	client.add_cog(VoiceChannel(client))
-
-
 class VoiceChannel(commands.Cog):
 	"""Voice channel commands"""
 
@@ -54,3 +49,6 @@ class VoiceChannel(commands.Cog):
 						await vc.set_permissions(speak = False)
 		except Exception as e:
 			print("No voice chat in category {0} is named {1}".format(cat, vcname))
+
+def setup(client):
+	client.add_cog(VoiceChannel(client))
