@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from cogs import QueryEngine, Bingo
 import psycopg2
 import os
 
@@ -16,7 +17,9 @@ def check_role(ctx):
 
 @client.event
 async def on_ready() :
-  await client.change_presence(status = discord.Status.idle, activity = discord.Game("Listening to .help"))
+  await client.change_presence(status = discord.Status.idle
+      , activity = discord.Game("Listening to .help")
+    )
   print("I am online")
   try:
     client.load_extension('cogs.QueryEngine')
@@ -37,5 +40,9 @@ async def start_bingo(ctx) :
     exc = '{0}: {1}'.format(type(e).__name__, e)
     print('Failed to load extension {0}\nError: {1}'.format('Bingo', exc))
 
+@client.command(name="startVoice", aliases=['sv', 'vc'])
+async def start_voice(ctx) :
+  """Starts a voice channel."""
+  await ctx.create_voice_channel('channel')
 
 client.run(token)

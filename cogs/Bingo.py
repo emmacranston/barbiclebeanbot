@@ -1,6 +1,7 @@
 import os
 import discord
 from discord.ext import commands
+from cogs import QueryEngine
 
 class Bingo(QueryEngine):
 	"""Commands for a bingo game."""
