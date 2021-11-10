@@ -21,7 +21,7 @@ class VoiceChannel(commands.Cog):
 			self.vcname = content.split(" ")[1]
 		await ctx.send(f"Creating voice channel {self.vcname} in category {self.catname}")
 		cat = discord.utils.find(lambda m: m.name == self.catname, 
-			ctx.channel.guild.categories)
+			ctx.guild.categories)
 		await ctx.guild.create_voice_channel(self.vcname,
 			category = cat)
 
@@ -30,10 +30,9 @@ class VoiceChannel(commands.Cog):
 		"""Kills a voice chat channel."""
 		content = ctx.message.content.split(".kvc")[-1]
 		try:
-			for vc in ctx.guild.voice_channels:
-				if vc.name == content:
-					await vc.delete
-					await ctx.send(f"Channel {content} deleted")
+			ch = discord.utils.find(lambda m: content, ctx.guild.voice_channels)
+			await ch.delete()
+			await ctx.send(f"Channel {content} deleted")
 		except Exception as e:
 			await ctx.send(f"Channel {content} not deleted; see logs.")
 			print("Channel {0} not deleted: {1}".format(content, e))
