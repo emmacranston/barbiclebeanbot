@@ -28,6 +28,8 @@ async def on_ready() :
     exc = '{0}: {1}'.format(type(e).__name__, e)
     print('Failed to load extension {0}\nError: {1}'.format('QueryEngine', exc))
 
+@client.command(name='voiceChannel')
+async def voiceChannel(ctx) :
   try: 
     client.load_extension('cogs.VoiceChannel')
     print("Loaded extension '{0}'".format('VoiceChannel'))
