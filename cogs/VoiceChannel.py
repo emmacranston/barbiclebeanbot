@@ -9,18 +9,27 @@ class VoiceChannel(commands.Cog):
 
 	def __init__(self, client):
 		self.client = client
-		self.cat = "Voice Channels"
+		self.catname = "Voice Channels"
 		self.vcname = "Focus Time"
+
+	def findCat(self, catname: str):
+		catlist = discord.utils.get()
+		for ch in catlist:
+			if ch.name == catname:
+				return ch.id
+			
 
 	@commands.command(name = 'vc')
 	async def vc(self, ctx):
 		"""Begins a voice chat channel. Type vc [category, channel name] to create a voice chat channel with the listed name in the listed category."""
 		content = ctx.message.content.split(".vc")[-1]
 		if len(content) > 0:
-			self.cat = content.split(" ")[0]
+			self.catname = content.split(" ")[0]
 			self.vcname = content.split(" ")[1]
+			cat = discord.utils.find(lambda m: m.name == self.catname, 
+				channel.guild.categories)
 		await ctx.guild.create_voice_channel(self.vcname,
-			category = self.cat)
+			category = cat)
 
 	@commands.command(name='kvc')
 	async def kvc(self, ctx) :
