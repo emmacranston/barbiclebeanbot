@@ -1,20 +1,23 @@
-##VoiceChannel
+# VoiceChannel
 import os
 import discord
 from discord.ext import commands
 
+
 def setup(client):
 	client.add_cog(VoiceChannel(client))
 
+
 class VoiceChannel(commands.Cog):
 	"""Voice channel commands"""
+
 	def __init__(self, client):
 		self.client = client
 		self.cat = "Voice Channels"
 		self.vcname = "Focus Time"
 
 	@commands.command(name='vc')
-	async def vc(self, ctx) :
+	async def vc(self, ctx):
 		"""Begins a voice chat channel. Type vc [category, channel name] to create a voice chat channel with the listed name in the listed category."""
 	    content = ctx.message.content.split(".vc")[-1]
 	    if length(content) > 0:
