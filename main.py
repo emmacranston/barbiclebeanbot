@@ -43,6 +43,6 @@ async def start_bingo(ctx) :
 @client.command(name="startVoice", aliases=['sv', 'vc'])
 async def start_voice(ctx) :
   """Starts a voice channel."""
-  await client.create_voice_channel('channel')
+  await ctx.guild.create_voice_channel('channel')
 
 client.run(token)
