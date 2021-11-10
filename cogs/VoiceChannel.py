@@ -12,14 +12,23 @@ class VoiceChannel(commands.Cog):
 		self.cat = "Voice Channels"
 		self.vcname = "Focus Time"
 
-	@commands.command(name='vc')
+	@commands.command(name = 'vc')
 	async def vc(self, ctx):
-		"""Begins a voice chat channel. Type vc [category, channel name] to create a voice chat channel with the listed name in the listed category."""
-	    content = ctx.message.content.split(".vc")[-1]
-	    if length(content) > 0:
-	        self.cat = content.split(" ")[0]
-	        self.vcname = content.split(" ")[1]
-        await ctx.guild.create_voice_channel(self.vcname, category=self.cat)
+		content = ctx.message.content.split(".vc")[-1]
+		if length(content) > 0:
+			self.cat = content.split(" ")[0]
+			self.vcname = content.split(" ")[1]
+		await ctx.guild.create_voice_channel(self.vcname,
+			category = self.cat)
+
+	# @commands.command(name='vc')
+	# async def vc(self, ctx):
+	# 	"""Begins a voice chat channel. Type vc [category, channel name] to create a voice chat channel with the listed name in the listed category."""
+	#     content = ctx.message.content.split(".vc")[-1]
+	#     if length(content) > 0:
+	#         self.cat = content.split(" ")[0]
+	#         self.vcname = content.split(" ")[1]
+ #        await ctx.guild.create_voice_channel(self.vcname, category=self.cat)
 
 	@commands.command(name='kvc')
 	async def kvc(self, ctx) :
