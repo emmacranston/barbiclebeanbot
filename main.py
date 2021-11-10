@@ -32,9 +32,8 @@ async def on_ready() :
     client.load_extension('cogs.VoiceChannel')
     print("Loaded extension '{0}'".format('VoiceChannel'))
   except Exception as e:
-      exc = '{0}: {1}'.format(type(e).__name__, e)
-      print('Failed to load extension {0}\nError: {1}'.format('VoiceChannel', exc))
-
+    exc = '{0}: {1}'.format(type(e).__name__, e)
+    print('Failed to load extension {0}\nError: {1}'.format('VoiceChannel', exc))
 
 
 @client.command(name="startBingo", aliases=['sb'])
