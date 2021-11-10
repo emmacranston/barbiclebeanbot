@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from cogs import QueryEngine
 
-class Bingo():
+class Bingo(commands.Cog):
 	"""Commands for a bingo game."""
 	def __init__(self, client):
 		self.client = client
