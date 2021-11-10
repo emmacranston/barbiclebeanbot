@@ -13,8 +13,8 @@ class VoiceChannel(commands.Cog):
 	@commands.command(name='vc')
 	async def vc(self, ctx) :
 	    """Begins a voice chat channel. 
-	     Type vc [category, channel name] to create a voice chat channel with 
-	     the listed name in the listed category."""
+	    Type vc [category, channel name] to create a voice chat channel with 
+	    the listed name in the listed category."""
 	    content = ctx.message.content.split(".vc")[-1]
 	    if length(content) > 0:
 		    self.cat = content.split(" ")[0]
