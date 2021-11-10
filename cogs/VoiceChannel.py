@@ -3,6 +3,9 @@ import os
 import discord
 from discord.ext import commands
 
+def setup(client):
+	client.add_cog(VoiceChannel(client))
+
 class VoiceChannel(commands.Cog):
 	"""Voice channel commands"""
 	def __init__(self, client):
@@ -17,8 +20,8 @@ class VoiceChannel(commands.Cog):
 	    the listed name in the listed category."""
 	    content = ctx.message.content.split(".vc")[-1]
 	    if length(content) > 0:
-		    self.cat = content.split(" ")[0]
-		    self.vcname = content.split(" ")[1]
+	    	self.cat = content.split(" ")[0]
+	    	self.vcname = content.split(" ")[1]
 		await ctx.guild.create_voice_channel(self.vcname, category=self.cat)
 
 	@commands.command(name='kvc')
