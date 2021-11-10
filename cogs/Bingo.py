@@ -37,7 +37,7 @@ class Bingo():
 	  print(item)
 	  query_sql = f"""INSERT INTO public.bingolist (key, server)
 	  VALUES ('{item}', '{ctx.guild.name}' )"""
-	  addQuery = run_query(query_sql
+	  addQuery = self.query_engine.run_query(query_sql
 	    , f"Added {item} to bingolist."
 	    , f"{item} is already in the bingo list."
 	    )
@@ -65,7 +65,7 @@ class Bingo():
 	    query_sql = f"""INSERT INTO public.current_game (bingo_key, link)
 	    VALUES ('{key}', '{link}');"""
 
-	    foundQuery = run_query(query_sql,
+	    foundQuery = self.query_engine.run_query(query_sql,
 	      f"Added {key} with link {link} to current game.",
 	      f"{key} has already been found!"
 	      )
