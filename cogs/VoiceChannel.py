@@ -12,13 +12,6 @@ class VoiceChannel(commands.Cog):
 		self.catname = "Voice Channels"
 		self.vcname = "Focus Time"
 
-	def findCat(self, catname: str):
-		catlist = discord.utils.get()
-		for ch in catlist:
-			if ch.name == catname:
-				return ch.id
-			
-
 	@commands.command(name = 'vc')
 	async def vc(self, ctx):
 		"""Begins a voice chat channel. Type vc [category, channel name] to create a voice chat channel with the listed name in the listed category."""
@@ -26,8 +19,9 @@ class VoiceChannel(commands.Cog):
 		if len(content) > 0:
 			self.catname = content.split(" ")[0]
 			self.vcname = content.split(" ")[1]
-			cat = discord.utils.find(lambda m: m.name == self.catname, 
-				channel.guild.categories)
+		await ctx.send(f"Creating voice channel {self.vcname} in category {self.catname}")
+		cat = discord.utils.find(lambda m: m.name == self.catname, 
+			channel.guild.categories)
 		await ctx.guild.create_voice_channel(self.vcname,
 			category = cat)
 
@@ -39,8 +33,9 @@ class VoiceChannel(commands.Cog):
 			for vc in ctx.guild.voice_channels:
 				if vc.name == content:
 					await vc.delete
-					print("Channel %s deleted" % content)
+					await ctx.send(f"Channel {content} deleted")
 		except Exception as e:
+			await ctx.send(f"Channel {content} not deleted; see logs.")
 			print("Channel {0} not deleted: {1}".format(content, e))
 
 	@commands.command(name='muteall')
