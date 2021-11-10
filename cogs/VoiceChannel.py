@@ -17,11 +17,10 @@ class VoiceChannel(commands.Cog):
 		"""Begins a voice chat channel. Type vc [category, channel name] to create a voice chat channel with the listed name in the listed category."""
 		content = ctx.message.content.split(".vc")[-1]
 		if len(content) > 0:
-			self.catname = content.split(" ")[0]
-			self.vcname = content.split(" ")[1]
+			self.catname = content.split(",")[0]
+			self.vcname = content.split(",")[1]
 		await ctx.send(f"Creating voice channel {self.vcname} in category {self.catname}")
-		cat = discord.utils.find(lambda m: m.name == self.catname, 
-			ctx.guild.categories)
+		cat = discord.utils.get(ctx.guild.categories, name=self.catname)
 		await ctx.guild.create_voice_channel(self.vcname,
 			category = cat)
 
@@ -29,8 +28,10 @@ class VoiceChannel(commands.Cog):
 	async def kvc(self, ctx) :
 		"""Kills a voice chat channel."""
 		content = ctx.message.content.split(".kvc")[-1]
+		print(content)
 		try:
-			ch = discord.utils.find(lambda m: content, ctx.guild.voice_channels)
+			ch = discord.utils.get(ctx.guild.voice_channels, name=content)
+			print(ch.name)
 			await ch.delete()
 			await ctx.send(f"Channel {content} deleted")
 		except Exception as e:
