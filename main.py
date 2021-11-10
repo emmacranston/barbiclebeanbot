@@ -28,6 +28,13 @@ async def on_ready() :
     exc = '{0}: {1}'.format(type(e).__name__, e)
     print('Failed to load extension {0}\nError: {1}'.format('QueryEngine', exc))
 
+  try: 
+    client.load_extension('cogs.VoiceChannel')
+    print("Loaded extension '{0}'".format('VoiceChannel'))
+  except Exception as e:
+      exc = '{0}: {1}'.format(type(e).__name__, e)
+      print('Failed to load extension {0}\nError: {1}'.format('VoiceChannel', exc))
+
 
 
 @client.command(name="startBingo", aliases=['sb'])
@@ -39,10 +46,5 @@ async def start_bingo(ctx) :
   except Exception as e:
     exc = '{0}: {1}'.format(type(e).__name__, e)
     print('Failed to load extension {0}\nError: {1}'.format('Bingo', exc))
-
-@client.command(name="startVoice", aliases=['sv', 'vc'])
-async def start_voice(ctx) :
-  """Starts a voice channel."""
-  await ctx.guild.create_voice_channel('channel')
 
 client.run(token)
