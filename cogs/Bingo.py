@@ -24,7 +24,7 @@ class Bingo(QueryEngine):
 	    print(listQuery)
 	    await ctx.send(f"**Bingo list includes:** ```\n{listQuery}```")
 
-	@client.command(name="BingoAdd")
+	@commands.command(name="BingoAdd")
 	async def BingoAdd(ctx) :
 	  """ Adds an item to the bingo list.
 	   #TODO 
@@ -43,7 +43,7 @@ class Bingo(QueryEngine):
 	    )
 	  await ctx.send(addQuery)
 
-	@client.command(name="currentlist")
+	@commands.command(name="currentlist")
 	async def currentlist(ctx) :
 	    """ Shows the current list of items that have been confirmed by the Bingo Dictator.
 	    #TODO
@@ -54,7 +54,7 @@ class Bingo(QueryEngine):
 	      f"All data: ```{record_string}```")
 	    await ctx.send(clistQuery)
 
-	@client.command(name="found")
+	@commands.command(name="found")
 	async def found(ctx):
 	  # TODO: make sure the item name is in the card items list
 	    await ctx.send(f"You said: {ctx.message.content}")
@@ -71,7 +71,7 @@ class Bingo(QueryEngine):
 	      )
 	    await ctx.send(foundQuery)
 
-	@client.command(name="newgame")
+	@commands.command(name="newgame")
 	async def newGame(ctx):
 	  """ Makes a new game. If you're the Bingo Dictator.
 	  #TODO 
@@ -87,7 +87,7 @@ class Bingo(QueryEngine):
 	  else:
 	    await ctx.send("You are a PEASANT!")
 
-	@client.command(name="confirmfind")
+	@commands.command(name="confirmfind")
 	async def confirmFind(ctx, item):
 	  """  Confirms that a 'found' item has been accepted.
 	  #TODO
@@ -100,14 +100,14 @@ class Bingo(QueryEngine):
 	  else:
 	    await ctx.send("Simple _peasants_ mayn't confirm Bingo finds.")
 
-	@client.command(name="joingame")
+	@commands.command(name="joingame")
 	async def joingame(ctx):
 	  """Allows you to join a new game.
 	  #TODO
 	  """
 	  pass
 
-	@client.command(name="leavegame")
+	@commands.command(name="leavegame")
 	async def leavegame(ctx):
 	  """Allows you to leave the game.
 	  """
