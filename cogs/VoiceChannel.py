@@ -20,17 +20,17 @@ class VoiceChannel(commands.Cog):
 			self.catname = content.split(",")[0]
 			self.vcname = content.split(",")[1]
 		await ctx.send(f"Creating voice channel {self.vcname} in category {self.catname}")
-		cat = discord.utils.get(ctx.guild.categories, name=self.catname)
+		cat = discord.utils.get(guild.categories, name=self.catname)
 		await ctx.guild.create_voice_channel(self.vcname,
 			category = cat)
 
 	@commands.command(name='kvc')
 	async def kvc(self, ctx) :
 		"""Kills a voice chat channel."""
-		content = ctx.message.content.split(".kvc")[-1]
+		content = ctx.message.content.split(".kvc ")[-1]
 		print(content)
 		try:
-			ch = discord.utils.get(ctx.guild.voice_channels, name=content)
+			ch = discord.utils.get(guild.voice_channels, name=content)
 			print(ch.name)
 			await ch.delete()
 			await ctx.send(f"Channel {content} deleted")
